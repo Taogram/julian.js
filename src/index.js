@@ -4,20 +4,19 @@
  * @Author: lax
  * @Date: 2022-01-08 23:46:17
  * @LastEditors: lax
- * @LastEditTime: 2022-01-14 01:00:44
+ * @LastEditTime: 2022-01-14 01:13:55
  * @FilePath: \time\src\index.js
  */
 
-const CALENDAR = require("@/time/default.js");
+const CALENDAR = require("@/default.js");
 const {
 	isGregorianDays,
 	$UTC$JD,
 	UTC$JD,
 	$JD$UTC,
 	JD$UTC,
-} = require("@/time/julianDay/index.js");
-const VERSION = "1.0.0";
-
+} = require("@/jd.js");
+const VERSION = "1.0.1";
 class Time extends Date {
 	constructor(_date = new Date()) {
 		super(_date);
