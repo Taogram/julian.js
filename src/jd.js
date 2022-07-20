@@ -4,11 +4,12 @@
  * @Author: lax
  * @Date: 2022-01-09 12:09:47
  * @LastEditors: lax
- * @LastEditTime: 2022-01-14 01:04:13
- * @FilePath: \time\src\jd.js
+ * @LastEditTime: 2022-07-20 16:39:40
+ * @FilePath: \taogram-time\src\jd.js
  */
 
 const CALENDAR = require("@/default.js");
+const NASA = require("@/algorithm/nasa.js");
 
 /**
  * @description 是否是格里高利历 凡小于历元为1582年10月15日
@@ -29,17 +30,23 @@ function isGregorianDays(year, month, day) {
 	return true;
 }
 
+function UTC$DT(date) {
+	const offset = NASA(date);
+	date.setSeconds(date.getUTCSeconds() + offset);
+	return date;
+}
+
 /**
- * @description 获取儒略日Julian Day 参数单位为协调世界时
- * @param {UTC} _year
- * @param {UTC} _month
- * @param {UTC} date
- * @param {UTC} hour
- * @param {UTC} minute
- * @param {UTC} second
+ * @description 获取儒略日Julian Day 参数单位为力学时
+ * @param {DT} _year
+ * @param {DT} _month
+ * @param {DT} date
+ * @param {DT} hour
+ * @param {DT} minute
+ * @param {DT} second
  * @returns {JD} jd
  */
-function UTC$JD(_year, _month, date, hour, minute, second) {
+function DT$JD(_year, _month, date, hour, minute, second) {
 	let B = 0;
 	let A = ~~(_year / 100);
 	let month = _month;
@@ -73,7 +80,7 @@ function $UTC$JD(_date) {
 	const minute = _date.getUTCMinutes();
 	const second = _date.getUTCSeconds();
 
-	return UTC$JD(year, month, date, hour, minute, second);
+	return DT$JD(year, month, date, hour, minute, second);
 }
 
 /**
@@ -126,7 +133,8 @@ function $JD$UTC(jd) {
 module.exports = {
 	isGregorianDays,
 	$UTC$JD,
-	UTC$JD,
+	UTC$DT,
+	DT$JD,
 	$JD$UTC,
 	JD$UTC,
 };
