@@ -1,6 +1,6 @@
 module.exports = function NASA(date) {
 	let y = date.getUTCFullYear();
-	const m = date.getUTCMonth + 1;
+	const m = date.getUTCMonth() + 1;
 	y += (m - 0.5) / 12;
 	let t;
 	let u;

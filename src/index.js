@@ -4,20 +4,24 @@
  * @Author: lax
  * @Date: 2022-01-08 23:46:17
  * @LastEditors: lax
- * @LastEditTime: 2022-01-14 01:13:55
- * @FilePath: \time\src\index.js
+ * @LastEditTime: 2022-07-20 20:25:06
+ * @FilePath: \taogram-time\src\index.js
  */
 
 const CALENDAR = require("@/default.js");
+const NASA = require("@/algorithm/nasa.js");
 const {
 	isGregorianDays,
-	$UTC$JD,
-	UTC$JD,
+	UTC$DT,
+	$DT$JD,
+	DT$JD,
 	$JD$UTC,
 	JD$UTC,
 } = require("@/jd.js");
 const VERSION = "1.0.1";
 class Time extends Date {
+	#algorithm = Time.algorithm;
+
 	constructor(_date = new Date()) {
 		super(_date);
 		const date = new Date(_date);
@@ -27,24 +31,21 @@ class Time extends Date {
 		this.hour = date.getUTCHours();
 		this.minute = date.getUTCMinutes();
 		this.second = date.getUTCSeconds();
-		this.jd = this.getJD();
+		this.dt = UTC$DT(new Date(this), this.#algorithm.deltaT);
+		this.jd = $DT$JD(this.dt);
 	}
 
-	getJD(
-		y = this.year,
-		M = this.month,
-		d = this.date,
-		h = this.hour,
-		m = this.minute,
-		s = this.second
-	) {
-		return UTC$JD(y, M, d, h, m, s);
+	static setDeltaTAlgorithm(algo) {
+		this.algorithm.deltaT = algo;
 	}
 }
+
+Time.algorithm = {};
+Time.algorithm.deltaT = NASA;
 Time.isGregorianDays = isGregorianDays;
-Time.UTC$JD = UTC$JD;
+Time.UTC$JD = DT$JD;
 Time.JD$UTC = JD$UTC;
-Time.$UTC$JD = $UTC$JD;
+Time.$UTC$JD = $DT$JD;
 Time.$JD$UTC = $JD$UTC;
 Time.version = VERSION;
 Time.CALENDAR = CALENDAR;

@@ -4,12 +4,11 @@
  * @Author: lax
  * @Date: 2022-01-09 12:09:47
  * @LastEditors: lax
- * @LastEditTime: 2022-07-20 16:39:40
+ * @LastEditTime: 2022-07-20 20:01:12
  * @FilePath: \taogram-time\src\jd.js
  */
 
 const CALENDAR = require("@/default.js");
-const NASA = require("@/algorithm/nasa.js");
 
 /**
  * @description 是否是格里高利历 凡小于历元为1582年10月15日
@@ -30,9 +29,9 @@ function isGregorianDays(year, month, day) {
 	return true;
 }
 
-function UTC$DT(date) {
-	const offset = NASA(date);
-	date.setSeconds(date.getUTCSeconds() + offset);
+function UTC$DT(date, algo) {
+	const offset = algo(date);
+	date.setSeconds(date.getUTCSeconds() - offset);
 	return date;
 }
 
@@ -71,7 +70,7 @@ function DT$JD(_year, _month, date, hour, minute, second) {
 	return result;
 }
 
-function $UTC$JD(_date) {
+function $DT$JD(_date) {
 	if (!(_date instanceof Date)) throw new Error("this arg is not Date");
 	const year = _date.getUTCFullYear();
 	const month = _date.getUTCMonth() + 1;
@@ -132,7 +131,7 @@ function $JD$UTC(jd) {
 
 module.exports = {
 	isGregorianDays,
-	$UTC$JD,
+	$DT$JD,
 	UTC$DT,
 	DT$JD,
 	$JD$UTC,
