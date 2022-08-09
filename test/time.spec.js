@@ -4,7 +4,7 @@
  * @Author: lax
  * @Date: 2022-07-20 20:06:39
  * @LastEditors: lax
- * @LastEditTime: 2022-07-20 20:24:44
+ * @LastEditTime: 2022-08-10 00:08:47
  * @FilePath: \taogram-time\test\time.spec.js
  */
 const Time = require("@/index.js");
@@ -21,5 +21,11 @@ describe("Time test", () => {
 		});
 		const now = new Time();
 		expect(moment(now.dt).diff(now, "seconds")).toBe(-1);
+	});
+});
+
+describe(`calc test`, () => {
+	it(`DT 333/1/27 12:00:00`, () => {
+		expect(new Time("0333-1-27 12:00:00Z").jd).toBeCloseTo(1842713);
 	});
 });

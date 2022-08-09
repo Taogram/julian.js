@@ -1,14 +1,19 @@
+/**
+ * by NASA:https://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html
+ * @param {*} date
+ * @returns
+ */
 module.exports = function NASA(date) {
-	let y = date.getUTCFullYear();
+	const year = date.getUTCFullYear();
 	const m = date.getUTCMonth() + 1;
-	y += (m - 0.5) / 12;
+	let y = year + (m - 0.5) / 12;
 	let t;
 	let u;
-	if (y < -500) {
+	if (year < -500) {
 		u = (y - 1820) / 100;
 		t = -20 + 32 * u * u;
 	}
-	if (y >= -500 < 500) {
+	if (year >= -500 < 500) {
 		u = y / 100;
 		t =
 			10583.6 -
@@ -19,7 +24,7 @@ module.exports = function NASA(date) {
 			0.022174192 * u * u * u * u * u +
 			0.0090316521 * u * u * u * u * u * u;
 	}
-	if (y >= 500 < 1600) {
+	if (year >= 500 < 1600) {
 		u = (y - 1000) / 100;
 		t =
 			1574.2 -
@@ -30,11 +35,11 @@ module.exports = function NASA(date) {
 			0.005050998 * u * u * u * u * u +
 			0.00083572073 * u * u * u * u * u * u;
 	}
-	if (y >= 1600 < 1700) {
+	if (year >= 1600 < 1700) {
 		u = y - 1600;
 		t = 120 - 0.9808 * u - 0.01532 * u * u + (u * u * u) / 7129;
 	}
-	if (y >= 1700 < 1800) {
+	if (year >= 1700 < 1800) {
 		u = y - 1700;
 		t =
 			8.83 +
@@ -43,7 +48,7 @@ module.exports = function NASA(date) {
 			0.00013336 * u * u * u -
 			(u * u * u * u) / 1174000;
 	}
-	if (y >= 1800 < 1860) {
+	if (year >= 1800 < 1860) {
 		u = y - 1800;
 		t =
 			13.72 -
@@ -55,7 +60,7 @@ module.exports = function NASA(date) {
 			0.0000001699 * u * u * u * u * u * u +
 			0.000000000875 * u * u * u * u * u * u * u;
 	}
-	if (y >= 1860 < 1900) {
+	if (year >= 1860 < 1900) {
 		u = y - 1860;
 		t =
 			7.62 +
@@ -65,7 +70,7 @@ module.exports = function NASA(date) {
 			0.0004473624 * u * u * u * u +
 			(u * u * u * u * u) / 233174;
 	}
-	if (y >= 1900 < 1920) {
+	if (year >= 1900 < 1920) {
 		u = y - 1900;
 		t =
 			-2.79 +
@@ -74,19 +79,19 @@ module.exports = function NASA(date) {
 			0.0061966 * u * u * u -
 			0.000197 * u * u * u * u;
 	}
-	if (y >= 1920 < 1941) {
+	if (year >= 1920 < 1941) {
 		u = y - 1920;
 		t = 21.2 + 0.84493 * u - 0.0761 * u * u + 0.0020936 * u * u * u;
 	}
-	if (y >= 1941 < 1961) {
+	if (year >= 1941 < 1961) {
 		u = y - 1950;
 		t = 29.07 + 0.407 * u - (u * u) / 233 + (u * u * u) / 2547;
 	}
-	if (y >= 1961 < 1986) {
+	if (year >= 1961 < 1986) {
 		u = y - 1975;
 		t = 45.45 + 1.067 * u - (u * u) / 260 - (u * u * u) / 718;
 	}
-	if (y >= 1986 < 2005) {
+	if (year >= 1986 < 2005) {
 		u = y - 2000;
 		t =
 			63.86 +
@@ -96,15 +101,15 @@ module.exports = function NASA(date) {
 			0.000651814 * u * u * u * u +
 			0.00002373599 * u * u * u * u * u;
 	}
-	if (y >= 2005 < 2050) {
+	if (year >= 2005 < 2050) {
 		u = y - 2000;
 		t = 62.92 + 0.32217 * u + 0.005589 * u * u;
 	}
-	if (y >= 2050 < 2150) {
+	if (year >= 2050 < 2150) {
 		u = (y - 1820) / 100;
 		t = -20 + 32 * u * u - 0.5628 * (2150 - y);
 	}
-	if (y >= 2150) {
+	if (year >= 2150) {
 		u = (y - 1820) / 100;
 		t = -20 + 32 * u * u;
 	}

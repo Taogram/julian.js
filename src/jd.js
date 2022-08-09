@@ -4,11 +4,11 @@
  * @Author: lax
  * @Date: 2022-01-09 12:09:47
  * @LastEditors: lax
- * @LastEditTime: 2022-07-20 20:01:12
+ * @LastEditTime: 2022-08-10 00:05:36
  * @FilePath: \taogram-time\src\jd.js
  */
 
-const CALENDAR = require("@/default.js");
+const CALENDAR = { a: 365.25 };
 
 /**
  * @description 是否是格里高利历 凡小于历元为1582年10月15日
@@ -31,7 +31,13 @@ function isGregorianDays(year, month, day) {
 
 function UTC$DT(date, algo) {
 	const offset = algo(date);
-	date.setSeconds(date.getUTCSeconds() - offset);
+	date.setUTCSeconds(date.getUTCSeconds() - offset);
+	return date;
+}
+
+function DT$UTC(date, algo) {
+	const offset = algo(date);
+	date.setSeconds(date.getUTCSeconds() + offset);
 	return date;
 }
 
@@ -64,9 +70,9 @@ function DT$JD(_year, _month, date, hour, minute, second) {
 		B +
 		date +
 		-1524.5 +
-		hour / 24.0001 +
-		minute / 1440.0001 +
-		second / 86400.0001;
+		hour / 24 +
+		minute / 1440 +
+		second / 86400;
 	return result;
 }
 
@@ -85,9 +91,9 @@ function $DT$JD(_date) {
 /**
  * @description 儒略日转世界协调时
  * @param {JD} _JD
- * @returns {UTC} time
+ * @returns {DT} time
  */
-function JD$UTC(_JD) {
+function JD$DT(_JD) {
 	let JDF = _JD + 0.5;
 	let Z = ~~JDF;
 	let F = JDF - Z;
@@ -124,16 +130,27 @@ function JD$UTC(_JD) {
 	return { y, M, d, h, m, s };
 }
 
-function $JD$UTC(jd) {
-	const { y, M, d, h, m, s } = JD$UTC(jd);
+function $JD$DT(jd) {
+	const { y, M, d, h, m, s } = JD$DT(jd);
 	return new Date(y, M, d, h, m, s);
+}
+
+function UTC$JD(date, algo) {
+	return $DT$JD(UTC$DT(date, algo));
+}
+
+function JD$UTC(_JD, algo) {
+	return DT$UTC($JD$DT(_JD), algo);
 }
 
 module.exports = {
 	isGregorianDays,
-	$DT$JD,
+	DT$UTC,
 	UTC$DT,
+	$DT$JD,
 	DT$JD,
-	$JD$UTC,
+	$JD$DT,
+	JD$DT,
+	UTC$JD,
 	JD$UTC,
 };
