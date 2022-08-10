@@ -1,8 +1,0 @@
-{
-    "path-autocomplete.pathMappings": {
-        "@": "${folder}/src/",
-        "@test": "${folder}/test/",
-    },
-    "cSpell.words": [
-    ],
-}
