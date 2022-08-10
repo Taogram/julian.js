@@ -1,8 +1,8 @@
 {
-  "name": "taogram-time",
-  "version": "1.0.1",
+  "name": "julian.js",
+  "version": "1.1.0",
   "private": false,
-  "description": "jd for the Date",
+  "description": "JDE for the UTC OR DT",
   "main": "./lib/index.js",
   "license": "MIT",
   "author": {
