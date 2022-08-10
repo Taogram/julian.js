@@ -40,11 +40,18 @@
     "tao",
     "taogram",
     "jd",
-    "Julian Day",
+    "jde",
+    "julian",
+    "julian Day",
+    "dynamic",
+    "dynamic time",
     "utc",
+    "ut1",
     "ut",
     "time",
     "node",
-    "date"
+    "date",
+    "js",
+    "javascript"
   ]
 }
