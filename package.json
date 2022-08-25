@@ -1,6 +1,6 @@
 {
   "name": "julian.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "JDE for the UTC OR DT",
   "main": "./lib/index.js",
@@ -35,7 +35,7 @@
     "moment": "^2.29.4",
     "prettier": "^2.2.1"
   },
-  "repository": "https://github.com/Taogram/taogram-time.git",
+  "repository": "https://github.com/Taogram/julian.js.git",
   "keywords": [
     "tao",
     "taogram",
