@@ -4,8 +4,8 @@
  * @Author: lax
  * @Date: 2022-07-20 20:06:39
  * @LastEditors: lax
- * @LastEditTime: 2022-08-10 10:26:16
- * @FilePath: \Julian.js\test\time.spec.js
+ * @LastEditTime: 2022-08-25 22:31:17
+ * @FilePath: \julian.js\test\time.spec.js
  */
 const Time = require("@/index.js");
 const moment = require("moment");
@@ -57,5 +57,9 @@ describe(`calc test (ignore DT offset)`, () => {
 
 	it(`UTC 333/1/27 12:00:00 JD = 1842713`, () => {
 		expect(time.getJD()).toBeCloseTo(1842713);
+	});
+
+	it(`UTC 333/1/27 12:00:00 JD = 1842713 use $`, () => {
+		expect(Time.DT$JD(333, 1, 27, 12, 0, 0)).toBeCloseTo(1842713);
 	});
 });
