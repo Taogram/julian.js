@@ -4,8 +4,8 @@
  * @Author: lax
  * @Date: 2022-01-09 12:09:47
  * @LastEditors: lax
- * @LastEditTime: 2022-08-10 10:08:59
- * @FilePath: \Julian.js\src\jd.js
+ * @LastEditTime: 2022-08-25 22:55:04
+ * @FilePath: \julian.js\src\jd.js
  */
 
 const CALENDAR = { a: 365.25 };
@@ -90,7 +90,7 @@ function $DT$JD(_date) {
 }
 
 /**
- * @description 儒略日转世界协调时
+ * @description 儒略日转世界时
  * @param {JD} _JD
  * @returns {DT} time
  */
@@ -133,15 +133,15 @@ function JD$DT(_JD) {
 
 function $JD$DT(jd) {
 	const { y, M, d, h, m, s } = JD$DT(jd);
-	return new Date(y, M, d, h, m, s);
+	return new Date(y, M - 1, d, h, m, s);
 }
 
 function UTC$JD(date, algo) {
 	return $DT$JD(UTC$DT(date, algo));
 }
 
-function JD$UTC(_JD, algo) {
-	return DT$UTC($JD$DT(_JD), algo);
+function JD$UTC(JD, algo) {
+	return DT$UTC($JD$DT(JD), algo);
 }
 
 module.exports = {
