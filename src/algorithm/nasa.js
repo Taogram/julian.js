@@ -1,7 +1,7 @@
 /**
  * by NASA:https://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html
  * @param {*} date
- * @returns
+ * @returns T
  */
 module.exports = function NASA(date) {
 	const year = date.getUTCFullYear();

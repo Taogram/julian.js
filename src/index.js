@@ -4,7 +4,7 @@
  * @Author: lax
  * @Date: 2022-01-08 23:46:17
  * @LastEditors: lax
- * @LastEditTime: 2022-08-10 10:53:00
+ * @LastEditTime: 2023-02-02 19:20:42
  * @FilePath: \Julian.js\src\index.js
  */
 
@@ -21,10 +21,20 @@ const {
 	JD$UTC,
 } = require("@/jd.js");
 class AstronomicalDate extends Date {
+	/**
+	 * @description ΔT calculate algorithm/算法
+	 * @default NASA
+	 */
 	#algorithm = AstronomicalDate.algorithm;
 
+	/**
+	 * @description Dynamic Time/力学时
+	 */
 	#dt;
 
+	/**
+	 * @description Julian Day（DT）/儒略日（力学时）
+	 */
 	#jd;
 
 	constructor(date = new Date(), ignore = true) {
