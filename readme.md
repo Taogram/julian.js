@@ -4,36 +4,40 @@
  * @Author: lax
  * @Date: 2022-01-14 00:39:40
  * @LastEditors: lax
- * @LastEditTime: 2022-08-10 10:51:10
+ * @LastEditTime: 2023-02-02 19:48:38
  * @FilePath: \Julian.js\readme.md
 -->
 
 # julian.js
-## 介绍
-基于Date并支持儒略日的时间函数对象
+Julian Day Object,extend `Date` Object
+基于Date并支持儒略日的时间函数对象,主要用于天文或大时间尺度的计算
 
 
-## 使用
+## USAGE/使用
 ```
 const Time = require("julian.js");
 const date = new Time();
+const jd = date.getJD();
 ```
 
-## api
-
-## 初始化
+# API
+## INIT/初始化
 ```
 new Time(date,ignore)
 ```
 ### date
-时间
+Date Object
+Date对象
 ### ignore
-是否忽略力学时和世界协调时的差距
+ignore ΔT, default true
+是否忽略力学时和世界协调时的差距(ΔT)
 
-## 儒略日 JulianDay
+## JulianDay/儒略日
 ### object.getJulianDay()
+get julian day
 获取儒略日
 ### object.getJD()
+same with getJulianDay()
 获取儒略日 同getJulianDay()
 
 ### object.getModifiedJulianDay()
@@ -67,45 +71,45 @@ new Time(date,ignore)
 ### object.getDynamicSeconds()
 获取力学时的秒数
 
-### 静态方法
-## time.UTC$DT
+## STATIC METHOD/静态方法
+### time.UTC$DT
 utc转DT
 
-## time.DT$UTC
+### time.DT$UTC
 DT转utc
 
-## time.UTC$JD
+### time.UTC$JD
 UTC转JD
-## time.JD$UTC
+### time.JD$UTC
 JD转UTC
-## time.DT$JD
+### time.DT$JD
 DT转JD 
 ```
 TIME.DT$JD(y,M,d,h,m,s);
 ```
 
-## time.\$DT$JD
+### time.\$DT$JD
 DT转JD
 ```
 TIME.DT$JD(date);
 ```
 
-## time.JD$DT
+### time.JD$DT
 JD转DT
 ```
 return {y,M,d,h,m,s}
 ```
-## time.\$JD$DT
+### time.\$JD$DT
 JD转DT
 return date
 
-## time.isGregorianDays
+### time.isGregorianDays
 判断是否是格里历
 ```
 TIME.isGregorianDays(year,month,date);
 ```
 
-## time.setDeltaTAlgorithm
+### time.setDeltaTAlgorithm
 设置 DeltaT 算法 默认为NASA提供（src/algorithm/nasa.js）
 DeltaT = UTC - DT
 ## 注意事项
