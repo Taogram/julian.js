@@ -4,7 +4,7 @@
  * @Author: lax
  * @Date: 2022-01-09 12:09:47
  * @LastEditors: lax
- * @LastEditTime: 2022-08-25 22:55:04
+ * @LastEditTime: 2023-04-08 22:31:14
  * @FilePath: \julian.js\src\jd.js
  */
 
@@ -30,16 +30,30 @@ function isGregorianDays(year, month, day) {
 	return true;
 }
 
+/**
+ * @description UTC=>DT
+ * @param {UTC} date UTC时间
+ * @param {*} algo 算法
+ * @returns date(DT)
+ */
 function UTC$DT(date, algo = DeltaT) {
-	const offset = algo(date);
-	date.setUTCSeconds(date.getUTCSeconds() - offset);
-	return date;
+	const T = new Date(date);
+	const offset = algo(T);
+	T.setUTCSeconds(T.getUTCSeconds() - offset);
+	return T;
 }
 
+/**
+ * @description DT=>UTC
+ * @param {UTC} date DT时间
+ * @param {*} algo 算法
+ * @returns date(UTC)
+ */
 function DT$UTC(date, algo = DeltaT) {
-	const offset = algo(date);
-	date.setSeconds(date.getUTCSeconds() + offset);
-	return date;
+	const T = new Date(date);
+	const offset = algo(T);
+	T.setUTCSeconds(T.getUTCSeconds() + offset);
+	return T;
 }
 
 /**
@@ -133,7 +147,15 @@ function JD$DT(_JD) {
 
 function $JD$DT(jd) {
 	const { y, M, d, h, m, s } = JD$DT(jd);
-	return new Date(y, M - 1, d, h, m, s);
+	const y_ = String(Math.abs(y));
+	let yPrefix = y < 0 ? "-000000" : "+000000";
+	const yyyy = yPrefix.substring(0, 7 - y_.length) + y_;
+	const MM = String(M).length === 1 ? "0" + M : M;
+	const dd = String(d).length === 1 ? "0" + d : d;
+	const hh = String(h).length === 1 ? "0" + h : h;
+	const mm = String(m).length === 1 ? "0" + m : m;
+	const ss = String(s).length === 1 ? "0" + s : s;
+	return new Date(`${yyyy}-${MM}-${dd}T${hh}:${mm}:${ss}.000Z`);
 }
 
 function UTC$JD(date, algo) {

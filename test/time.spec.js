@@ -4,7 +4,7 @@
  * @Author: lax
  * @Date: 2022-07-20 20:06:39
  * @LastEditors: lax
- * @LastEditTime: 2022-08-25 23:01:47
+ * @LastEditTime: 2023-04-08 22:31:57
  * @FilePath: \julian.js\test\time.spec.js
  */
 const Time = require("@/index.js");
@@ -49,28 +49,57 @@ describe("AstronomicalDate test", () => {
 });
 
 describe(`calc test (ignore DT offset)`, () => {
-	const time = new Time("0333-1-27 12:00:00Z");
+	const TIME = "+000333-1-27 12:00:00.000Z";
+	const time = new Time(TIME);
 
-	it(`UTC 333/1/27 12:00:00 UTC = DT`, () => {
-		expect(time.getDT().getTime()).toBeCloseTo(time.getTime());
+	it(`${TIME} Time Object same with Date Object`, () => {
+		expect(time.getTime()).toBe(new Date(TIME).getTime());
 	});
 
-	it(`UTC 333/1/27 12:00:00 JD = 1842713`, () => {
+	it(`${TIME} Time: UTC = DT`, () => {
+		expect(time.getDT().getTime()).toBe(time.getTime());
+	});
+
+	it(`${TIME} JD = 1842713`, () => {
+		expect(time.getJD()).toBe(1842713);
+	});
+});
+
+describe(`calc test ( DT offset )`, () => {
+	const TIME = "+000333-1-27 12:00:00.000Z";
+	const time = new Time(TIME, false);
+
+	it(`${TIME} Time Object same with Date Object`, () => {
+		expect(time.getTime()).toBe(new Date(TIME).getTime());
+	});
+
+	it(`${TIME} Time: UTC ~ DT`, () => {
+		expect(time.getDT().getTime() / 10000).toBeCloseTo(
+			time.getTime() / 10000,
+			0
+		);
+	});
+
+	it(`${TIME} JD = 1842713`, () => {
 		expect(time.getJD()).toBeCloseTo(1842713);
 	});
 });
 
 describe(`X $ X`, () => {
-	it(`JD$DT JD =2448976.5`, () => {
-		const jd = 2448976.5;
-		const { y, M, d, h, m, s } = Time.JD$DT(jd);
-		expect(
-			moment("1992-12-20 00:00:00").isSame(new Date(y, M - 1, d, h, m, s))
-		).toBe(true);
+	const JD = 2448976.5;
+	const TIME = "+001992-12-20T00:00:00.000Z";
+	it(`JD$DT JD =${JD}`, () => {
+		const { y, M, d, h, m, s } = Time.JD$DT(JD);
+		const t = new Date(TIME);
+		expect(t.getUTCFullYear()).toBe(y);
+		expect(t.getUTCMonth()).toBe(M - 1);
+		expect(t.getUTCDate()).toBe(d);
+		expect(t.getUTCHours()).toBe(h);
+		expect(t.getUTCMinutes()).toBe(m);
+		expect(t.getUTCSeconds()).toBe(s);
 	});
 
-	it(`$JD$DT JD =2448976.5`, () => {
-		const jd = 2448976.5;
-		expect(moment("1992-12-20 00:00:00").isSame(Time.$JD$DT(jd))).toBe(true);
+	it(`$JD$DT JD =${JD}`, () => {
+		expect(moment(TIME).isSame(Time.$JD$DT(JD))).toBe(true);
 	});
 });
