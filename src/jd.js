@@ -4,11 +4,11 @@
  * @Author: lax
  * @Date: 2022-01-09 12:09:47
  * @LastEditors: lax
- * @LastEditTime: 2023-04-08 22:31:14
+ * @LastEditTime: 2023-04-15 14:36:55
  * @FilePath: \julian.js\src\jd.js
  */
 
-const CALENDAR = { a: 365.25 };
+const CALENDAR = { a: 365.25, JC_BASE: 2299161 };
 const DeltaT = require("@/algorithm/nasa.js");
 
 /**
@@ -67,15 +67,17 @@ function DT$UTC(date, algo = DeltaT) {
  * @returns {JD} jd
  */
 function DT$JD(_year, _month, date, hour, minute, second) {
-	let B = 0;
-	let A = ~~(_year / 100);
 	let month = _month;
 	let year = _year;
 	if (month <= 2) {
 		month += 12;
 		year -= 1;
 	}
+
+	let B = 0;
+
 	if (isGregorianDays(year, month, date)) {
+		let A = ~~(year / 100);
 		B = 2 - A + ~~(A / 4);
 	}
 
@@ -104,7 +106,7 @@ function $DT$JD(_date) {
 }
 
 /**
- * @description 儒略日转世界时
+ * @description 儒略日转力学时
  * @param {JD} _JD
  * @returns {DT} time
  */
