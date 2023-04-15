@@ -1,8 +1,8 @@
 {
   "name": "julian.js",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "private": false,
-  "description": "JDE for the UTC OR DT",
+  "description": "JD for the UTC OR DT",
   "main": "./lib/index.js",
   "license": "MIT",
   "author": {
