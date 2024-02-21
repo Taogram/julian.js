@@ -4,7 +4,7 @@
  * @Author: lax
  * @Date: 2022-07-20 20:06:39
  * @LastEditors: lax
- * @LastEditTime: 2023-04-08 22:31:57
+ * @LastEditTime: 2024-02-21 23:28:11
  * @FilePath: \julian.js\test\time.spec.js
  */
 const Time = require("@/index.js");
@@ -20,7 +20,7 @@ describe("AstronomicalDate test", () => {
 		expect(t instanceof Date).toBe(true);
 	});
 	it(`set algorithm`, () => {
-		expect(moment(t.getDT()).diff(t, "seconds")).toBe(-1);
+		expect(moment(t.getTD()).diff(t, "seconds")).toBe(-1);
 	});
 	it(`getDynamicDate`, () => {
 		expect(now.getDynamicDate()).toBe(now.getUTCDate());
@@ -48,7 +48,7 @@ describe("AstronomicalDate test", () => {
 	});
 });
 
-describe(`calc test (ignore DT offset)`, () => {
+describe(`calc test (ignore TD offset)`, () => {
 	const TIME = "+000333-1-27 12:00:00.000Z";
 	const time = new Time(TIME);
 
@@ -56,8 +56,8 @@ describe(`calc test (ignore DT offset)`, () => {
 		expect(time.getTime()).toBe(new Date(TIME).getTime());
 	});
 
-	it(`${TIME} Time: UTC = DT`, () => {
-		expect(time.getDT().getTime()).toBe(time.getTime());
+	it(`${TIME} Time: UTC = TD`, () => {
+		expect(time.getTD().getTime()).toBe(time.getTime());
 	});
 
 	it(`${TIME} JD = 1842713`, () => {
@@ -65,7 +65,7 @@ describe(`calc test (ignore DT offset)`, () => {
 	});
 });
 
-describe(`calc test ( DT offset )`, () => {
+describe(`calc test ( TD offset )`, () => {
 	const TIME = "+000333-1-27 12:00:00.000Z";
 	const time = new Time(TIME, false);
 
@@ -73,8 +73,8 @@ describe(`calc test ( DT offset )`, () => {
 		expect(time.getTime()).toBe(new Date(TIME).getTime());
 	});
 
-	it(`${TIME} Time: UTC ~ DT`, () => {
-		expect(time.getDT().getTime() / 10000).toBeCloseTo(
+	it(`${TIME} Time: UTC ~ TD`, () => {
+		expect(time.getTD().getTime() / 10000).toBeCloseTo(
 			time.getTime() / 10000,
 			0
 		);
@@ -88,8 +88,8 @@ describe(`calc test ( DT offset )`, () => {
 describe(`X $ X`, () => {
 	const JD = 2448976.5;
 	const TIME = "+001992-12-20T00:00:00.000Z";
-	it(`JD$DT JD =${JD}`, () => {
-		const { y, M, d, h, m, s } = Time.JD$DT(JD);
+	it(`JD$TD JD =${JD}`, () => {
+		const { y, M, d, h, m, s } = Time.JD$TD(JD);
 		const t = new Date(TIME);
 		expect(t.getUTCFullYear()).toBe(y);
 		expect(t.getUTCMonth()).toBe(M - 1);
@@ -99,7 +99,7 @@ describe(`X $ X`, () => {
 		expect(t.getUTCSeconds()).toBe(s);
 	});
 
-	it(`$JD$DT JD =${JD}`, () => {
-		expect(moment(TIME).isSame(Time.$JD$DT(JD))).toBe(true);
+	it(`$JD$TD JD =${JD}`, () => {
+		expect(moment(TIME).isSame(Time.$JD$TD(JD))).toBe(true);
 	});
 });

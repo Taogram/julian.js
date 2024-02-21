@@ -11,12 +11,12 @@
 const NASA = require("@/algorithm/nasa.js");
 const {
 	isGregorianDays,
-	DT$UTC,
-	UTC$DT,
-	$DT$JD,
-	DT$JD,
-	$JD$DT,
-	JD$DT,
+	TD$UTC,
+	UTC$TD,
+	$TD$JD,
+	TD$JD,
+	$JD$TD,
+	JD$TD,
 	UTC$JD,
 	JD$UTC,
 } = require("@/jd.js");
@@ -30,19 +30,19 @@ class AstronomicalDate extends Date {
 	/**
 	 * @description Dynamic Time/力学时
 	 */
-	#dt;
+	#td;
 
 	/**
-	 * @description Julian Day（DT）/儒略日（力学时）
+	 * @description Julian Day（TD）/儒略日（力学时）
 	 */
 	#jd;
 
 	constructor(date = new Date(), ignore = true) {
 		super(date);
-		this.#dt = ignore
+		this.#td = ignore
 			? new Date(this)
-			: UTC$DT(new Date(this), this.#algorithm.deltaT);
-		this.#jd = $DT$JD(this.#dt);
+			: UTC$TD(new Date(this), this.#algorithm.deltaT);
+		this.#jd = $TD$JD(this.#td);
 	}
 
 	getJulianDay() {
@@ -62,43 +62,43 @@ class AstronomicalDate extends Date {
 	}
 
 	getDynamicTime() {
-		return this.#dt;
+		return this.#td;
 	}
 
-	getDT() {
+	getTD() {
 		return this.getDynamicTime();
 	}
 
 	getDynamicDate() {
-		return this.#dt.getUTCDate();
+		return this.#td.getUTCDate();
 	}
 
 	getDynamicDay() {
-		return this.#dt.getUTCDay();
+		return this.#td.getUTCDay();
 	}
 
 	getDynamicFullYear() {
-		return this.#dt.getUTCFullYear();
+		return this.#td.getUTCFullYear();
 	}
 
 	getDynamicHours() {
-		return this.#dt.getUTCHours();
+		return this.#td.getUTCHours();
 	}
 
 	getDynamicMilliseconds() {
-		return this.#dt.getUTCMilliseconds();
+		return this.#td.getUTCMilliseconds();
 	}
 
 	getDynamicMinutes() {
-		return this.#dt.getUTCMinutes();
+		return this.#td.getUTCMinutes();
 	}
 
 	getDynamicMonth() {
-		return this.#dt.getUTCMonth();
+		return this.#td.getUTCMonth();
 	}
 
 	getDynamicSeconds() {
-		return this.#dt.getUTCSeconds();
+		return this.#td.getUTCSeconds();
 	}
 
 	static setDeltaTAlgorithm(algo) {
@@ -109,12 +109,12 @@ class AstronomicalDate extends Date {
 AstronomicalDate.algorithm = {};
 AstronomicalDate.algorithm.deltaT = NASA;
 AstronomicalDate.isGregorianDays = isGregorianDays;
-AstronomicalDate.DT$UTC = DT$UTC;
-AstronomicalDate.UTC$DT = UTC$DT;
-AstronomicalDate.$DT$JD = $DT$JD;
-AstronomicalDate.DT$JD = DT$JD;
-AstronomicalDate.$JD$DT = $JD$DT;
-AstronomicalDate.JD$DT = JD$DT;
+AstronomicalDate.TD$UTC = TD$UTC;
+AstronomicalDate.UTC$TD = UTC$TD;
+AstronomicalDate.$TD$JD = $TD$JD;
+AstronomicalDate.TD$JD = TD$JD;
+AstronomicalDate.$JD$TD = $JD$TD;
+AstronomicalDate.JD$TD = JD$TD;
 AstronomicalDate.UTC$JD = UTC$JD;
 AstronomicalDate.JD$UTC = JD$UTC;
 module.exports = AstronomicalDate;

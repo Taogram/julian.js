@@ -4,7 +4,7 @@
  * @Author: lax
  * @Date: 2022-01-09 12:09:47
  * @LastEditors: lax
- * @LastEditTime: 2023-04-15 14:36:55
+ * @LastEditTime: 2024-02-21 23:25:15
  * @FilePath: \julian.js\src\jd.js
  */
 
@@ -31,12 +31,12 @@ function isGregorianDays(year, month, day) {
 }
 
 /**
- * @description UTC=>DT
+ * @description UTC=>TD
  * @param {UTC} date UTC时间
  * @param {*} algo 算法
- * @returns date(DT)
+ * @returns date(TD)
  */
-function UTC$DT(date, algo = DeltaT) {
+function UTC$TD(date, algo = DeltaT) {
 	const T = new Date(date);
 	const offset = algo(T);
 	T.setUTCSeconds(T.getUTCSeconds() - offset);
@@ -44,12 +44,12 @@ function UTC$DT(date, algo = DeltaT) {
 }
 
 /**
- * @description DT=>UTC
- * @param {UTC} date DT时间
+ * @description TD=>UTC
+ * @param {UTC} date TD时间
  * @param {*} algo 算法
  * @returns date(UTC)
  */
-function DT$UTC(date, algo = DeltaT) {
+function TD$UTC(date, algo = DeltaT) {
 	const T = new Date(date);
 	const offset = algo(T);
 	T.setUTCSeconds(T.getUTCSeconds() + offset);
@@ -58,15 +58,15 @@ function DT$UTC(date, algo = DeltaT) {
 
 /**
  * @description 获取儒略日Julian Day 参数单位为力学时
- * @param {DT} _year
- * @param {DT} _month
- * @param {DT} date
- * @param {DT} hour
- * @param {DT} minute
- * @param {DT} second
+ * @param {TD} _year
+ * @param {TD} _month
+ * @param {TD} date
+ * @param {TD} hour
+ * @param {TD} minute
+ * @param {TD} second
  * @returns {JD} jd
  */
-function DT$JD(_year, _month, date, hour, minute, second) {
+function TD$JD(_year, _month, date, hour, minute, second) {
 	let month = _month;
 	let year = _year;
 	if (month <= 2) {
@@ -93,7 +93,7 @@ function DT$JD(_year, _month, date, hour, minute, second) {
 	return result;
 }
 
-function $DT$JD(_date) {
+function $TD$JD(_date) {
 	if (!(_date instanceof Date)) throw new Error("this arg is not Date");
 	const year = _date.getUTCFullYear();
 	const month = _date.getUTCMonth() + 1;
@@ -102,15 +102,15 @@ function $DT$JD(_date) {
 	const minute = _date.getUTCMinutes();
 	const second = _date.getUTCSeconds();
 
-	return DT$JD(year, month, date, hour, minute, second);
+	return TD$JD(year, month, date, hour, minute, second);
 }
 
 /**
  * @description 儒略日转力学时
  * @param {JD} _JD
- * @returns {DT} time
+ * @returns {TD} time
  */
-function JD$DT(_JD) {
+function JD$TD(_JD) {
 	let JDF = _JD + 0.5;
 	let Z = ~~JDF;
 	let F = JDF - Z;
@@ -147,8 +147,8 @@ function JD$DT(_JD) {
 	return { y, M, d, h, m, s };
 }
 
-function $JD$DT(jd) {
-	const { y, M, d, h, m, s } = JD$DT(jd);
+function $JD$TD(jd) {
+	const { y, M, d, h, m, s } = JD$TD(jd);
 	const y_ = String(Math.abs(y));
 	let yPrefix = y < 0 ? "-000000" : "+000000";
 	const yyyy = yPrefix.substring(0, 7 - y_.length) + y_;
@@ -161,21 +161,21 @@ function $JD$DT(jd) {
 }
 
 function UTC$JD(date, algo) {
-	return $DT$JD(UTC$DT(date, algo));
+	return $TD$JD(UTC$TD(date, algo));
 }
 
 function JD$UTC(JD, algo) {
-	return DT$UTC($JD$DT(JD), algo);
+	return TD$UTC($JD$TD(JD), algo);
 }
 
 module.exports = {
 	isGregorianDays,
-	DT$UTC,
-	UTC$DT,
-	$DT$JD,
-	DT$JD,
-	$JD$DT,
-	JD$DT,
+	TD$UTC,
+	UTC$TD,
+	$TD$JD,
+	TD$JD,
+	$JD$TD,
+	JD$TD,
 	UTC$JD,
 	JD$UTC,
 };
