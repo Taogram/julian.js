@@ -39,7 +39,7 @@ function isGregorianDays(year, month, day) {
 function UTC$TD(date, algo = DeltaT) {
 	const T = new Date(date);
 	const offset = algo(T);
-	T.setUTCSeconds(T.getUTCSeconds() + offset);
+	T.setUTCSeconds(T.getUTCSeconds() - offset);
 	return T;
 }
 
@@ -52,7 +52,7 @@ function UTC$TD(date, algo = DeltaT) {
 function TD$UTC(date, algo = DeltaT) {
 	const T = new Date(date);
 	const offset = algo(T);
-	T.setUTCSeconds(T.getUTCSeconds() - offset);
+	T.setUTCSeconds(T.getUTCSeconds() + offset);
 	return T;
 }
 
