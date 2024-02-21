@@ -4,7 +4,7 @@
  * @Author: lax
  * @Date: 2022-01-14 00:39:40
  * @LastEditors: lax
- * @LastEditTime: 2023-02-02 19:48:38
+ * @LastEditTime: 2024-02-21 23:39:46
  * @FilePath: \Julian.js\readme.md
 -->
 
@@ -72,35 +72,35 @@ same with getJulianDay()
 获取力学时的秒数
 
 ## STATIC METHOD/静态方法
-### time.UTC$DT
-utc转DT
+### time.UTC$TD
+utc转TD
 
-### time.DT$UTC
-DT转utc
+### time.TD$UTC
+TD转utc
 
 ### time.UTC$JD
 UTC转JD
 ### time.JD$UTC
 JD转UTC
-### time.DT$JD
-DT转JD 
+### time.TD$JD
+TD转JD 
 ```
-TIME.DT$JD(y,M,d,h,m,s);
-```
-
-### time.\$DT$JD
-DT转JD
-```
-TIME.DT$JD(date);
+TIME.TD$JD(y,M,d,h,m,s);
 ```
 
-### time.JD$DT
-JD转DT
+### time.\$TD$JD
+TD转JD
+```
+TIME.TD$JD(date);
+```
+
+### time.JD$TD
+JD转TD
 ```
 return {y,M,d,h,m,s}
 ```
-### time.\$JD$DT
-JD转DT
+### time.\$JD$TD
+JD转TD
 return date
 
 ### time.isGregorianDays
@@ -111,7 +111,7 @@ TIME.isGregorianDays(year,month,date);
 
 ### time.setDeltaTAlgorithm
 设置 DeltaT 算法 默认为NASA提供（src/algorithm/nasa.js）
-DeltaT = UTC - DT
+DeltaT = UTC - TD
 ## 注意事项
 
 * 该模块中的力学时为地球力学时和质心力学时的统称，不考虑两者之间的差值问题

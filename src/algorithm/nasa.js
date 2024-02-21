@@ -1,3 +1,11 @@
+/*
+ * @Description:
+ * @Version: 1.0.0
+ * @Author: lax
+ * @Date: 2022-08-25 21:25:47
+ * @LastEditors: lax
+ * @LastEditTime: 2024-02-21 23:46:47
+ */
 /**
  * by NASA:https://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html
  * @param {*} date

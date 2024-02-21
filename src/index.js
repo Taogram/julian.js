@@ -4,11 +4,12 @@
  * @Author: lax
  * @Date: 2022-01-08 23:46:17
  * @LastEditors: lax
- * @LastEditTime: 2023-02-02 19:20:42
+ * @LastEditTime: 2024-02-22 00:18:03
  * @FilePath: \Julian.js\src\index.js
  */
 
 const NASA = require("@/algorithm/nasa.js");
+const DEFAULT = require("@/algorithm/MorrisonAndStephenson.js");
 const {
 	isGregorianDays,
 	TD$UTC,
@@ -25,7 +26,7 @@ class AstronomicalDate extends Date {
 	 * @description ΔT calculate algorithm/算法
 	 * @default NASA
 	 */
-	#algorithm = AstronomicalDate.algorithm;
+	#algorithm;
 
 	/**
 	 * @description Dynamic Time/力学时
@@ -37,11 +38,12 @@ class AstronomicalDate extends Date {
 	 */
 	#jd;
 
-	constructor(date = new Date(), ignore = true) {
+	constructor(date = new Date(), ignore = true, algo) {
 		super(date);
+		this.#algorithm = algo || AstronomicalDate.algorithm.DIY || DEFAULT;
 		this.#td = ignore
 			? new Date(this)
-			: UTC$TD(new Date(this), this.#algorithm.deltaT);
+			: UTC$TD(new Date(this), this.#algorithm);
 		this.#jd = $TD$JD(this.#td);
 	}
 
@@ -65,7 +67,7 @@ class AstronomicalDate extends Date {
 		return this.#td;
 	}
 
-	getTD() {
+	getDT() {
 		return this.getDynamicTime();
 	}
 
@@ -102,12 +104,14 @@ class AstronomicalDate extends Date {
 	}
 
 	static setDeltaTAlgorithm(algo) {
-		this.algorithm.deltaT = algo;
+		this.algorithm.DIY = algo;
 	}
 }
 
 AstronomicalDate.algorithm = {};
-AstronomicalDate.algorithm.deltaT = NASA;
+AstronomicalDate.algorithm.DIY = undefined;
+AstronomicalDate.algorithm.NASA = NASA;
+AstronomicalDate.algorithm.DEFAULT = DEFAULT;
 AstronomicalDate.isGregorianDays = isGregorianDays;
 AstronomicalDate.TD$UTC = TD$UTC;
 AstronomicalDate.UTC$TD = UTC$TD;

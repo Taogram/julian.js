@@ -4,7 +4,7 @@
  * @Author: lax
  * @Date: 2022-07-20 20:06:39
  * @LastEditors: lax
- * @LastEditTime: 2024-02-21 23:28:11
+ * @LastEditTime: 2024-02-22 00:23:27
  * @FilePath: \julian.js\test\time.spec.js
  */
 const Time = require("@/index.js");
@@ -20,7 +20,7 @@ describe("AstronomicalDate test", () => {
 		expect(t instanceof Date).toBe(true);
 	});
 	it(`set algorithm`, () => {
-		expect(moment(t.getTD()).diff(t, "seconds")).toBe(-1);
+		expect(moment(t.getDT()).diff(t, "seconds")).toBe(-1);
 	});
 	it(`getDynamicDate`, () => {
 		expect(now.getDynamicDate()).toBe(now.getUTCDate());
@@ -57,7 +57,7 @@ describe(`calc test (ignore TD offset)`, () => {
 	});
 
 	it(`${TIME} Time: UTC = TD`, () => {
-		expect(time.getTD().getTime()).toBe(time.getTime());
+		expect(time.getDT().getTime()).toBe(time.getTime());
 	});
 
 	it(`${TIME} JD = 1842713`, () => {
@@ -74,7 +74,7 @@ describe(`calc test ( TD offset )`, () => {
 	});
 
 	it(`${TIME} Time: UTC ~ TD`, () => {
-		expect(time.getTD().getTime() / 10000).toBeCloseTo(
+		expect(time.getDT().getTime() / 10000).toBeCloseTo(
 			time.getTime() / 10000,
 			0
 		);
