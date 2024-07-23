@@ -4,7 +4,7 @@
  * @Author: lax
  * @Date: 2022-01-09 12:09:47
  * @LastEditors: lax
- * @LastEditTime: 2024-02-22 00:43:06
+ * @LastEditTime: 2024-07-23 21:29:53
  * @FilePath: \julian.js\src\jd.js
  */
 
@@ -87,9 +87,7 @@ function TD$JD(_year, _month, date, hour, minute, second) {
 		B +
 		date +
 		-1524.5 +
-		hour / 24 +
-		minute / 1440 +
-		second / 86400;
+		((second / 60 + minute) / 60 + hour) / 24;
 	return result;
 }
 

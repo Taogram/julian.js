@@ -4,13 +4,13 @@
  * @Author: lax
  * @Date: 2022-07-20 20:06:39
  * @LastEditors: lax
- * @LastEditTime: 2024-02-21 23:27:57
+ * @LastEditTime: 2024-07-23 21:30:11
  * @FilePath: \julian.js\test\time.spec.js
  */
 const { $TD$JD, $JD$TD } = require("@/jd.js");
 
 describe(`《Astronomical.Algorithms》Julian Day Test`, () => {
-	it(`$JD$TD 7.C JD=2436116.31`, () => {
+	it(`$JD$TD 7.C JD=2436116.31 ANS=1957-11-04.81`, () => {
 		const date = $JD$TD(2436116.31);
 		expect(date.getTime()).toBe(new Date("1957-10-04T19:26:24.000Z").getTime());
 	});
@@ -55,7 +55,7 @@ describe(`《Astronomical.Algorithms》Julian Day Test`, () => {
 	});
 
 	it(`$TD$JD 7.B -1000-8-17.9`, () => {
-		const jd = $TD$JD(new Date("-001001-08-17T21:00:00.000Z"));
+		const jd = $TD$JD(new Date("-001001-08-17T21:36:00.000Z"));
 		expect(jd).toBeCloseTo(1355671.4, 1);
 	});
 });

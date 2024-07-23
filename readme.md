@@ -4,14 +4,13 @@
  * @Author: lax
  * @Date: 2022-01-14 00:39:40
  * @LastEditors: lax
- * @LastEditTime: 2024-02-21 23:39:46
+ * @LastEditTime: 2024-07-23 21:40:13
  * @FilePath: \Julian.js\readme.md
 -->
 
 # julian.js
 Julian Day Object,extend `Date` Object
 基于Date并支持儒略日的时间函数对象,主要用于天文或大时间尺度的计算
-
 
 ## USAGE/使用
 ```
@@ -23,7 +22,7 @@ const jd = date.getJD();
 # API
 ## INIT/初始化
 ```
-new Time(date,ignore)
+new Time(date,ignore,algo)
 ```
 ### date
 Date Object
@@ -31,6 +30,8 @@ Date对象
 ### ignore
 ignore ΔT, default true
 是否忽略力学时和世界协调时的差距(ΔT)
+### algo
+力学时和世界时差的算法函数
 
 ## JulianDay/儒略日
 ### object.getJulianDay()
@@ -73,11 +74,9 @@ same with getJulianDay()
 
 ## STATIC METHOD/静态方法
 ### time.UTC$TD
-utc转TD
-
+UTC转TD
 ### time.TD$UTC
-TD转utc
-
+TD转UTC
 ### time.UTC$JD
 UTC转JD
 ### time.JD$UTC
@@ -87,7 +86,6 @@ TD转JD
 ```
 TIME.TD$JD(y,M,d,h,m,s);
 ```
-
 ### time.\$TD$JD
 TD转JD
 ```
@@ -111,8 +109,8 @@ TIME.isGregorianDays(year,month,date);
 
 ### time.setDeltaTAlgorithm
 设置 DeltaT 算法 默认为NASA提供（src/algorithm/nasa.js）
-DeltaT = UTC - TD
+DeltaT = UT(UTC) - TD
 ## 注意事项
 
-* 该模块中的力学时为地球力学时和质心力学时的统称，不考虑两者之间的差值问题
-* 该模块不考虑世界时和世界协调时的差值
+* 该模块中的力学时为地球力学时和质心力学时的统称，不考虑两者之间的差值问题（两者差值不超过0.0017 秒）
+* 该模块不考虑世界时和世界协调时的差值（不超过0.9秒）
